@@ -1,0 +1,6 @@
+keyboard
+flask
+requests
+pyqrcode
+pypng
+time
