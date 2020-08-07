@@ -9,24 +9,23 @@ from flask import Flask, request, redirect, render_template
 import requests
 import time
 import pyqrcode
-import io
 #download ngrok from https://ngrok.com/download
 app = Flask(__name__)
 
 def geturl():
     resp = requests.get('http://127.0.0.1:4040/api/tunnels')
     obj = resp.json()
-    pic = io.BytesIO()
     for i in obj['tunnels']:
         if ( not ('https' in i['public_url'])):
             global oorl
             oorl = i['public_url']
             print(oorl)
             urlqr = pyqrcode.create(oorl)
-            urlqr.png('code.png', scale=8, module_color=[0,0,0,128], background=[0xff, 0xff, 0xcc])
-            urlqr.show()
+            print(urlqr.terminal())
+            #urlqr.png('code.png', scale=8, module_color=[0,0,0,128], background=[0xff, 0xff, 0xcc])
+            #urlqr.show() #windows only
             return oorl
-            #urlqr.svg('qrurl.svg', scale=8)
+
 
 oorl = geturl()
 
